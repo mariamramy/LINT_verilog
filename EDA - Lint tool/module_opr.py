@@ -1,5 +1,3 @@
-from Lintify import line_num_list
-
 def counting_modules(verilog_code):
     module_counter = 0
     for i in verilog_code:
@@ -45,6 +43,7 @@ def remove_comments(module_lists):
     return module_lists
 
 def creating_line_num_list(module_lists_space):
+    from Lintify import line_num_list
     tmp = 0
     for i in module_lists_space:
         for line_num,j in enumerate(i):
