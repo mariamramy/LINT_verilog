@@ -69,31 +69,45 @@ def check_full_case(module_lists):
                     if ":" in line:
                         rows_count += 1
                 #print("rows_count", rows_count)
-                if mask == 0:
-                    if pow(2, size) != rows_count:
-                        print("\nNon-Full Case:")
-                        for x in line_num_list:
-                            if x[0] == i and x[2] == j:
-                                line_num = x[1] + 1
-                        print("Line Number:", line_num)
-                        statement_lists.append("\nNon-Full Case")
-                        statement_lists.append("Line Number : " + str(line_num))
-                        print("Module", i + 1, ":", module_lists[i][0])
-                        statement_lists.append("Module " + str(i + 1) + " : " + module_lists[i][0])
-                        print(f"Size of reg \"{reg_name}\":", size) 
-                        statement_lists.append(f"Size of reg \"{reg_name}\" : " + str(size))
-                        print("Number of variations:", rows_count)
-                        statement_lists.append("Number of variations : " + str(rows_count))
-                        print("Expected number of variations:", pow(2, size))
-                        statement_lists.append("Expected number of variations : " + str(pow(2, size)))
-                        print("Number of variations is not equal to expected number of variations")
-                        statement_lists.append("Number of variations is not equal to expected number of variations")
-                        print("=====================================")
-                        statement_lists.append("=====================================")
-                        print()
-                        break
+                if mask == 0:  # Only proceed if no default case is found
+                    size = None
+                    for k in reg_list:
+                        if k[1] == reg_name and k[0] == i:  # Find the matching register
+                            size = k[2]
+                            size_list_for_case.append(size)
+                            break  # Exit the loop after finding the size
+                    
+                    if size is not None:  # Ensure size was found before proceeding
+                        if pow(2, size) != rows_count:  # Check for non-full case
+                            print("\nNon-Full Case:")
+                            line_num = None
+                            for x in line_num_list:  # Find the line number for the case statement
+                                if x[0] == i and x[2] == j:
+                                    line_num = x[1] + 1
+                                    break
+                            
+                            if line_num is not None:  # Only proceed if a line number is found
+                                print("Line Number:", line_num)
+                                statement_lists.append("\nNon-Full Case")
+                                statement_lists.append("Line Number : " + str(line_num))
+                                print("Module", i + 1, ":", module_lists[i][0])
+                                statement_lists.append("Module " + str(i + 1) + " : " + module_lists[i][0])
+                                print(f"Size of reg \"{reg_name}\":", size) 
+                                statement_lists.append(f"Size of reg \"{reg_name}\" : " + str(size))
+                                print("Number of variations:", rows_count)
+                                statement_lists.append("Number of variations : " + str(rows_count))
+                                print("Expected number of variations:", pow(2, size))
+                                statement_lists.append("Expected number of variations : " + str(pow(2, size)))
+                                print("Number of variations is not equal to expected number of variations")
+                                statement_lists.append("Number of variations is not equal to expected number of variations")
+                                print("=====================================")
+                                statement_lists.append("=====================================")
+                                print()
+                        else:
+                            print(f"Case statement is full (size: {size}).")
                     else:
-                        break
+                        print(f"Warning: No matching size found for reg `{reg_name}`.")
+
             
 # ----------------------------------------------------Parallel Cases------------------------------------------>
 
