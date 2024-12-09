@@ -9,7 +9,7 @@ from check.unintialized_reg_detection import *
 from check.infer_latch_detection import *
 from check.unreachable_blocks_detection import *
 from check.unreachable_FSM_state_detection import *
-from check.mulidriven_reg_detection import *
+from check.multidriven_reg_detection import *
 from check.arithmetic_overflow import *
 from report import *
 
