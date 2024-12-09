@@ -1,6 +1,5 @@
 import re
 
-
 def generating_reg_list(module_lists,any_specific_index):
     reg_list = []
     # in each list first number is case_index and second number is reg_index & size of reg is third number
