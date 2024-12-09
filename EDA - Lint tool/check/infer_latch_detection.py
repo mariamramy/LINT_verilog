@@ -122,7 +122,11 @@ def check_infer_latch(module_lists):
         always_blocks = []
         used_signals = set()
         module_declaration_line = module[0]
-        used_signals.update(set(re.findall(r'\b(\w+)\b', re.search(r'\bmodule\s+\w+\s*\((.*?)\);', module_declaration_line).group(1))))
+        match = re.search(r'\bmodule\s+\w+\s*\((.*?)\);', module_declaration_line)
+        if match:
+            used_signals.update(set(re.findall(r'\b(\w+)\b', match.group(1))))
+        else:
+            print(f"Warning: No module declaration found in line: {module_declaration_line}")
         for i, line in enumerate(module):
             if re.search(r'always\s*@', line):
                 always_blocks.append(i)
