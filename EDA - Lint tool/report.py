@@ -1,5 +1,6 @@
-def report_generator(statement_lists):
-    with open('report.txt', 'w') as f:
-        for item in statement_lists:
-            f.write("%s\n" % item)
-    print("Report Generated Successfully")
+def write_report(violations, filename):
+    with open(filename, "w") as report:
+        for violation in violations:
+            report.write(
+                f"{violation['check']} - Line {violation['line']}: {violation['details']}\n"
+            )
